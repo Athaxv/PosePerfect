@@ -2,9 +2,11 @@ import { Button } from '@/components/ui/button';
 import Spline from '@splinetool/react-spline/next';
 import React, { useEffect } from 'react';
 import SplineProvider from './SplineProvider';
+import Link from 'next/link';
+
 
 function Homebar() {
-  
+
   return (
     <div className="relative w-full h-screen flex items-center justify-center p-10 md:px-20 lg:px-36 xl:px-48">
       {/* Background Spline Animation */}
@@ -26,9 +28,11 @@ function Homebar() {
 
         {/* Buttons */}
         <div className="flex justify-center mt-7 gap-4 text-xl">
+          <Link href="/sign-up">
           <Button variant="outline" size="lg" className="text-blue-500 hover:text-blue-600">
             Start Correction
           </Button>
+          </Link>
           <Button size="lg" className="bg-blue-500 hover:bg-blue-600">
             Learn More
           </Button>

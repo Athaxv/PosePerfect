@@ -1,9 +1,12 @@
+"use client"
 import { Button } from '@/components/ui/button'
+import { useUser } from '@clerk/nextjs';
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
 function Navbar() {
+  const { isSignedIn, user } = useUser();
   return (
     <div className='p-5 flex items-center justify-between'>
     <div className='items-center flex gap-2 cursor-pointer'>
@@ -13,8 +16,8 @@ function Navbar() {
     <div className='flex flex-row-reverse gap-3'>
         {/* <UserButton/> */}
         <Link href="/dashboard">
-        <Button  className="bg-blue-500 hover:bg-blue-600">
-                    Dashboard
+        <Button className="bg-blue-500 hover:bg-blue-600">
+                    {isSignedIn ? "Dashboard" : "Sign In"}
                   </Button>
         </Link>
     </div>
