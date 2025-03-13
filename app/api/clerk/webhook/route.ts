@@ -1,15 +1,19 @@
 import { Webhook } from 'svix';
 import { headers} from 'next/headers';
 import { WebhookEvent } from '@clerk/nextjs/server';
+import connectDB from '@/lib/connectDB';
+import User from '@/schema/user';
+import { NextResponse } from 'next/server';
 
 export async function POST(req: Request){
+    await connectDB();
     const WEBHOOK_SECRET = process.env.NEXT_CLERK_WEBHOOK_SECRET!;
 
     if (!WEBHOOK_SECRET){
         throw new Error("Please provide the webhook secret");
     }
 
-    const headerPayload = headers();
+    const headerPayload = await headers();
     const svix_id = headerPayload.get("svix-id");
     const svix_timestamp = headerPayload.get("svix-timestamp");
     const svix_signature = headerPayload.get("svix-signature");
@@ -41,9 +45,25 @@ export async function POST(req: Request){
 
     if (eventType === "user.created"){
         try {
-            
+            const { id, email_addresses, first_name, last_name, image_url } = evt.data;
+
+            let user = await User.findOne({ clerkId: id });
+
+            if (!user) {
+                user = new User({
+                    clerkId: id,
+                    email: email_addresses[0]?.email_address,
+                    firstName: first_name,
+                    lastName: last_name,
+                    profileImage: image_url,
+                });
+
+                await user.save();
+            }
+
+            return NextResponse.json({ message: "User created successfully" }, { status: 200 });
         } catch (error) {
-            
+            return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
         }
     }
 }
