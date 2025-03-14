@@ -1,13 +1,17 @@
 import { SidebarProvider } from '@/components/ui/sidebar'
 import React, { ReactNode } from 'react'
+import { AppSidebar } from './_components/AppSidebar'
+import AppHeader from './_components/AppHeader'
 
 function Provider({ children }: { children: ReactNode}) {
   return (
-    <div>
-        <SidebarProvider>
+    <SidebarProvider>
+        <AppSidebar/>
+    <div className='w-full'>
+        <AppHeader/>
         {children}
-        </SidebarProvider>
     </div>
+    </SidebarProvider>
   )
 }
 
