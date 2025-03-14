@@ -5,13 +5,13 @@ import AppHeader from './_components/AppHeader'
 
 function Provider({ children }: { children: ReactNode}) {
   return (
-    <SidebarProvider>
-        <AppSidebar/>
+    // <SidebarProvider>
+        // <AppSidebar/>
     <div className='w-full'>
-        <AppHeader/>
+        {/* <AppHeader/> */}
         {children}
     </div>
-    </SidebarProvider>
+    // </SidebarProvider>
   )
 }
 
