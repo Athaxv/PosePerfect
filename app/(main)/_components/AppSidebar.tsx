@@ -11,15 +11,20 @@ import {
     SidebarMenuItem,
   } from "@/components/ui/sidebar"
 import { UserButton } from "@clerk/nextjs"
-import { Atom, ChartLine, ChartNoAxesColumn, ChartNoAxesCombined, LoaderPinwheel, MessageSquare } from "lucide-react"
+import { Atom, ChartLine, ChartNoAxesColumn, ChartNoAxesCombined, LayoutDashboard, LoaderPinwheel, MessageSquare } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
   
   const menuItems = [
     {
-      title: "Pose Detector",
+      title: "Dashboard",
       url: '/dashboard',
+      image: LayoutDashboard,
+    },
+    {
+      title: "Pose Detector",
+      url: '/pose-detector',
       image: Atom,
     },
     {
@@ -66,7 +71,9 @@ import { usePathname } from "next/navigation"
               )) }
             </SidebarMenu>
           </SidebarGroup>
-          <SidebarGroup />
+          <SidebarGroup >
+            
+          </SidebarGroup>
         
         </SidebarContent>
         <SidebarFooter>
