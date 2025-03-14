@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { ExerciseType, estimatePose, analyzePosture, Pose } from '@/lib/posture-utils';
 
-export const usePoseAnalysis = (videoRef: React.RefObject<HTMLVideoElement>, isActive: boolean, exerciseType: ExerciseType) => {
+export const usePoseAnalysis = (videoRef: React.RefObject<HTMLVideoElement | null>, isActive: boolean, exerciseType: ExerciseType) => {
   const [feedback, setFeedback] = useState<string | null>(null);
   const [feedbackType, setFeedbackType] = useState<'correct' | 'warning' | 'incorrect'>('correct');
   const [score, setScore] = useState(0);

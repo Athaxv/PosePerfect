@@ -4,6 +4,7 @@ import { Menu, LayoutDashboard, Camera, Activity, History, Settings, User, LogOu
 import { cn } from '@/lib/utils';
 import WebcamView from '../_components/WebcamView';
 import { ExerciseType } from '@/lib/posture-utils';
+import { UserButton } from '@clerk/nextjs';
 
 const Dashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -57,7 +58,7 @@ const Dashboard = () => {
                 <path d="m20 12 0.01 0" />
               </svg>
             </div>
-            {isSidebarOpen && <span className="font-medium">Posture Perfect</span>}
+            {isSidebarOpen && <span className="font-medium">PosePerfect</span>}
           </div>
           <button 
             onClick={toggleSidebar} 
@@ -126,20 +127,19 @@ const Dashboard = () => {
               "flex items-center",
               !isSidebarOpen && "flex-col gap-1"
             )}>
-              <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                <User size={18} />
-              </div>
-              {isSidebarOpen && <span className="ml-3 text-sm font-medium">User</span>}
+              {/* <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+              //   {/* <User size={18} /> */}
+              {/* // </div> */} 
+              {isSidebarOpen && <UserButton/>}
             </div>
             
             {isSidebarOpen ? (
-              <button className="p-1.5 rounded-md hover:bg-secondary transition-colors text-muted-foreground">
-                <LogOut size={18} />
-              </button>
+              // <button className="p-1.5 rounded-md hover:bg-secondary transition-colors text-muted-foreground">
+              //   <LogOut size={18} />
+              // </button>
+              <div></div>
             ) : (
-              <button className="p-1.5 rounded-md hover:bg-secondary transition-colors text-muted-foreground">
-                <Settings size={18} />
-              </button>
+              <UserButton/>
             )}
           </div>
         </div>

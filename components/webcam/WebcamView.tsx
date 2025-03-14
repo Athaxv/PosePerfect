@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ExerciseType } from '@/lib/posture-utils';
 import { useWebcam } from '@/hooks/useWebcam';
 import { usePoseAnalysis } from '@/hooks/usePoseAnalysis';
@@ -16,12 +16,29 @@ const WebcamView = ({ exerciseType }: WebcamViewProps) => {
   // Use custom hooks
   const { videoRef, isCameraReady, error, retry } = useWebcam();
   const { canvasRef, feedback, feedbackType, score } = usePoseAnalysis(videoRef, isActive, exerciseType);
-  
+
+  // Ensure the canvas matches video dimensions after video is ready
+  useEffect(() => {
+    if (videoRef.current && canvasRef.current && isCameraReady) {
+      const video = videoRef.current;
+      const canvas = canvasRef.current;
+
+      if (!video.srcObject) {
+        console.warn("Video stream is not set. Check camera permissions.");
+        return;
+      }
+
+      canvas.width = video.videoWidth || 640;
+      canvas.height = video.videoHeight || 480;
+      console.log("Canvas size updated:", canvas.width, canvas.height);
+    }
+  }, [isCameraReady, videoRef]);
+
   // Toggle webcam analysis
   const toggleAnalysis = () => {
-    setIsActive(!isActive);
+    setIsActive((prev) => !prev);
   };
-  
+
   return (
     <div className="relative w-full max-w-3xl mx-auto rounded-2xl overflow-hidden shadow-xl bg-black">
       {/* Camera loading state */}
@@ -33,7 +50,7 @@ const WebcamView = ({ exerciseType }: WebcamViewProps) => {
           </div>
         </div>
       )}
-      
+
       {/* Camera error state */}
       {error && (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-900">
@@ -54,23 +71,22 @@ const WebcamView = ({ exerciseType }: WebcamViewProps) => {
           </div>
         </div>
       )}
-      
-      {/* Video element (hidden) */}
+
+      {/* 🚀 ✅ FIXED: Removed the extra <video> tag. Only using videoRef now! */}
       <video 
-        ref={videoRef}
+        ref={videoRef} 
         autoPlay 
         playsInline 
         muted 
-        className="w-full h-full object-cover"
-        style={{ display: 'none' }}
+        className="w-full h-auto object-cover"
       />
-      
+
       {/* Canvas for pose visualization */}
-      <canvas 
+      {/* <canvas 
         ref={canvasRef} 
-        className="w-full h-full object-cover"
-      />
-      
+        className="w-full h-auto object-cover"
+      /> */}
+
       {/* Controls overlay */}
       <WebcamControls 
         isActive={isActive}
