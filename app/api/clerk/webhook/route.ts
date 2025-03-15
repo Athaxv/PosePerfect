@@ -60,7 +60,7 @@ export async function POST(req: Request){
 
                 await user.save();
             }
-
+            console.log(user);
             return NextResponse.json({ message: "User created successfully" }, { status: 200 });
         } catch (error) {
             return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
