@@ -19,7 +19,7 @@ export default function Home() {
       </ExerciseProvider>
       <Feedback/>
       <ProgressDashboard/>
-      <Features/>
+      {/* <Features/> */}
       <GetinTouch/>
       <Footer/>
     </div>
