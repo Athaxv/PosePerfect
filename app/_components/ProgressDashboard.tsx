@@ -40,9 +40,9 @@ const ProgressDashboard = () => {
   };
   
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 py-16" id="dashboard">
+    <div className="w-full max-w-6xl mx-auto px-4 py-16 mt-20" id="dashboard">
       <div className="text-center mb-10">
-        <p className="text-sm font-medium uppercase tracking-wider text-primary mb-2">Your Progress</p>
+        <p className="text-lg font-medium uppercase tracking-wider text-blue-500 mb-2">Your Progress</p>
         <h2 className="text-3xl font-semibold mb-3">Track Your Improvement</h2>
         <p className="text-muted-foreground max-w-xl mx-auto">
           Monitor your posture correction progress over time and identify areas for improvement.
@@ -52,14 +52,14 @@ const ProgressDashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div className="col-span-2 glassmorphism rounded-xl p-6 shadow-sm border border-border/60 animate-fade-in">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-medium">Posture Score Trend</h3>
+            <h3 className="text-lg font-medium ">Posture Score Trend</h3>
             <div className="flex items-center p-1 rounded-lg bg-secondary">
               <button
                 onClick={() => setTimeRange('week')}
                 className={cn(
                   "text-xs px-3 py-1.5 rounded-md transition-colors",
                   timeRange === 'week' 
-                    ? "bg-white text-primary shadow-sm" 
+                    ? "bg-white text-blue-500 shadow-sm" 
                     : "text-muted-foreground hover:text-foreground"
                 )}
               >
@@ -96,7 +96,7 @@ const ProgressDashboard = () => {
                 <Bar 
                   dataKey="score" 
                   radius={[4, 4, 0, 0]} 
-                  fill="hsl(var(--primary))" 
+                  fill="#156fed" 
                   barSize={30} 
                   animationDuration={1500}
                 />
@@ -110,15 +110,15 @@ const ProgressDashboard = () => {
           
           <div className="flex items-center justify-between mb-6">
             <div className="text-center">
-              <p className="text-3xl font-semibold text-primary">82</p>
+              <p className="text-3xl font-semibold text-blue-500">82</p>
               <p className="text-sm text-muted-foreground">Average Score</p>
             </div>
             <div className="text-center">
-              <p className="text-3xl font-semibold text-primary">65</p>
+              <p className="text-3xl font-semibold text-blue-500">65</p>
               <p className="text-sm text-muted-foreground">Sessions</p>
             </div>
             <div className="text-center">
-              <p className="text-3xl font-semibold text-primary">12</p>
+              <p className="text-3xl font-semibold text-blue-500">12</p>
               <p className="text-sm text-muted-foreground">Day Streak</p>
             </div>
           </div>
@@ -165,7 +165,7 @@ const ProgressDashboard = () => {
               </div>
               <div className="h-2 w-full bg-secondary rounded-full overflow-hidden mb-3">
                 <div 
-                  className="h-full bg-primary rounded-full"
+                  className="h-full bg-blue-500 rounded-full"
                   style={{ width: `${exercise.score}%` }}
                 />
               </div>
