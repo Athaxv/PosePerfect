@@ -2,7 +2,7 @@ import { Webhook } from 'svix';
 import { headers} from 'next/headers';
 import { WebhookEvent } from '@clerk/nextjs/server';
 import connectDB from '@/lib/connectDB';
-import User from '@/schema/user';
+import User from '@/model/user';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request){
