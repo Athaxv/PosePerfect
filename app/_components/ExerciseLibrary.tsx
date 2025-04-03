@@ -39,7 +39,7 @@ const ExerciseLibrary = ({ onSelectExercise, selectedExerciseId }: ExerciseLibra
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 py-16" id="exercises">
+    <div className="w-full max-w-7xl mx-auto px-4 py-16" id="exercises">
       <div className="text-center mb-10">
         <p className="text-lg font-medium text-blue-500 uppercase tracking-wider mb-2">Exercise Library</p>
         <h2 className="text-5xl font-semibold mb-3">Perfect Your Form</h2>
@@ -70,7 +70,7 @@ const ExerciseLibrary = ({ onSelectExercise, selectedExerciseId }: ExerciseLibra
             placeholder="Search by exercise or muscle..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-3 rounded-xl border border-border bg-background focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all"
+            className="w-full pl-10 pr-4 py-3 rounded-xl border border-border bg-background focus:ring-2 focus:ring-blue-600 focus:outline-none transition-all"
           />
         </div>
       </div>
