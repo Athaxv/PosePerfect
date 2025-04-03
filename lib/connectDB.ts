@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 let isConnected = false;
 
-export default async function() {
+export default async function Connectdb() {
     const MONGO_URI = process.env.MONGODB_URI!;
 
     if (!MONGO_URI) {
