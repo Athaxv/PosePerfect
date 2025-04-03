@@ -10,32 +10,19 @@ export async function GET(req: NextRequest){
 export async function POST(req: NextRequest){
     try {
         await Connectdb();
+        const { clerkId, email, name, image} = await req.json()
 
-        const { userId } = await auth();
-        console.log(userId);
-
-        if (!userId) {
-            return NextResponse.json("user id Unauthorized", { status: 401})
+        if (!clerkId || !email) {
+            return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
         }
 
-        const user = await fetch(`https://api.clerk.dev/v1/users/${userId}`, {
-            headers: {
-                Authorization: `Bearer ${process.env.CLERK_SECRET_KEY}`
-            },
-        }).then((res) => res.json())
+        let user = await User.findOne({ clerkId });
+        if (!user){
+            user = new User({ clerkId, name, email, image})
+            const newuser = await user.save()
+            console.log(newuser);
 
-        const existingUser = user.findOne({ clerkId: user.id })
-
-        if (!existingUser){
-            const newUser =  new User({
-                clerkId: user.id,
-                email: user.email_addresses[0].email_address,
-                Name: user.first_name + " " + user.last_name,
-                image: user.image_url 
-            })
-            await newUser.save()
-
-            return NextResponse.json("User saved in db", { status: 200 });
+            return NextResponse.json("User saved in db", { status: 201})
         }
 
         return NextResponse.json("User already exists", { status: 200})

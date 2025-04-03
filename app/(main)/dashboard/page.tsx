@@ -1,5 +1,5 @@
 "use client"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Menu, LayoutDashboard, Camera, Activity, History, Settings, User, LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import WebcamView from '../_components/WebcamView';
@@ -27,6 +27,16 @@ const Dashboard = () => {
     { label: 'Push-up', value: ExerciseType.PUSHUP },
     { label: 'Plank', value: ExerciseType.PLANK },
   ];
+
+  useEffect(() => {
+    const saveuser = async () => {
+      const res = await fetch('/api/signup', {
+        method: "POST"
+      })
+      console.log("Saved user", res);
+    }
+    saveuser()
+  }, [])
 
   return (
     <div className="flex min-h-screen bg-background">
