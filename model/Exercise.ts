@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { model, models } from "mongoose";
 
 const ExerciseSchema = new mongoose.Schema({
     name: {
@@ -18,6 +18,6 @@ const ExerciseSchema = new mongoose.Schema({
     }
 }, {timestamps: true})
 
-const Exercise = mongoose.models.Exercise || mongoose.model("Exercise", ExerciseSchema)
+const Exercise = models?.Exercise || model("Exercise", ExerciseSchema)
 
 export default Exercise;

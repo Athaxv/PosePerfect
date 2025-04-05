@@ -1,9 +1,12 @@
 import { Webhook } from 'svix';
 import { headers} from 'next/headers';
-import { WebhookEvent } from '@clerk/nextjs/server';
+import { clerkClient, WebhookEvent } from '@clerk/nextjs/server';
 import connectDB from '@/lib/connectDB';
 import User from '@/model/user';
 import { NextResponse } from 'next/server';
+import { createUser } from '@/lib/actions/user.action';
+
+
 
 export async function POST(req: Request){
     await connectDB();
@@ -56,11 +59,13 @@ export async function POST(req: Request){
                     firstName: first_name,
                     lastName: last_name,
                     profileImage: image_url,
-                });
-
-                await user.save();
+                });                
             }
+
             console.log(user);
+
+            const newUser = await createUser(user)
+
             return NextResponse.json({ message: "User created successfully" }, { status: 200 });
         } catch (error) {
             return NextResponse.json({ error: "Something went wrong" }, { status: 500 });

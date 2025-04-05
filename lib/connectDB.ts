@@ -1,24 +1,34 @@
 import { NextResponse } from "next/server";
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
 
-let isConnected = false;
+const MONGO_URI = process.env.MONGODB_URI!;
+
+interface MongooseConn {
+    conn: Mongoose | null;
+    promise: Promise<Mongoose> | null;
+}
+
+let cached: any = (global as any).mongoose;
+
+if (!cached){
+    cached = (global as any).mongoose = {
+        conn: null,
+        promise: null 
+    }
+}
 
 export default async function Connectdb() {
-    const MONGO_URI = process.env.MONGODB_URI!;
+    if (cached.conn) return cached.conn
 
-    if (!MONGO_URI) {
-        return NextResponse.json({ error: "MongoDB URI not provided" }, { status: 500 });
-    }
+    cached.Promise = cached.Promise || 
+    mongoose.connect(MONGO_URI, {
+        dbName: "PosePerfect",
+        bufferCommands: false,
+        connectTimeoutMS: 30000,
+    })
 
-    if (isConnected) {
-        return NextResponse.json({ message: "MongoDB already connected" });
-    }
+    cached.conn = await cached.promise
 
-    try {
-        isConnected = true;
-        await mongoose.connect(MONGO_URI);
-        return NextResponse.json("MongoDB connected succesfully", {status: 200})
-    } catch (error) {
-        return NextResponse.json("MongoDB connection error", { status: 404 })
-    }
+    return cached.conn;
+
 }
